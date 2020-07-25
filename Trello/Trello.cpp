@@ -113,8 +113,8 @@ void PerformShowAnUser()
 {
     string email;
     cout << "Enter email id: ";
-    cin >> email;
-
+    getline( std::cin>>std::ws , email );
+ 
     string json =  app->ShowAnUser(email);
     if( !json.empty() )
         cout << json << "\n";
@@ -123,11 +123,12 @@ void PerformShowAnUser()
 void PerformCreateNewUser()
 {
     string name, email;
-    cout << "Enter name: ";
-    cin >> name;
 
+    cout << "Enter name: ";
+    getline( std::cin >> std::ws, name );
+    
     cout << "Enter email: ";
-    cin >> email;
+    getline( std::cin >> std::ws, email );
 
     string userId = app->CreateNewUser( name, email );
 
@@ -146,7 +147,7 @@ void PerformCreateBoard()
     string boardName;
 
     cout << "Enter board name: ";
-    cin >> boardName;
+    getline( std::cin >> std::ws, boardName );
 
     std::string boardId = app->CreateNewBoard( boardName );
 
@@ -157,8 +158,9 @@ void PerformCreateBoard()
 void PerformShowABoard()
 {
     string boardId;
+
     cout << "Show board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     string json = app->ShowABoard( boardId );
     if( !json.empty() )
@@ -176,7 +178,7 @@ void PerformDeleteBoard()
 {
     string boardId;
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     RETURN_CODE code = app->DeleteBoard( boardId );
    
@@ -189,10 +191,10 @@ void PerformAddBoardMember()
     string email, boardId;
 
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     cout << "Enter email id: ";
-    cin >> email;
+    getline( std::cin >> std::ws, email );
 
     RETURN_CODE code = app->AddBoardMember( boardId, email );
 
@@ -204,10 +206,10 @@ void PerformRemoveBoardMember()
     string email, boardId;
 
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     cout << "Enter email id: ";
-    cin >> email;
+    getline( std::cin >> std::ws, email );
 
     RETURN_CODE code = app->RemoveBoardMember( boardId, email );
     cout << Error::getReturnCodeMessage( code ) << "\n";
@@ -218,10 +220,10 @@ void PerformChangeBoardPrivacy()
     string boardId, privacy;
 
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     cout << "Enter privacy type [ PUBLIC , PRIVATE ]: ";
-    cin >> privacy;
+    getline( std::cin >> std::ws, privacy );
 
     RETURN_CODE code = app->SetPrivacy( boardId, privacy );
     cout << Error::getReturnCodeMessage( code ) << "\n";
@@ -230,8 +232,9 @@ void PerformChangeBoardPrivacy()
 void PerformGetBoardURL()
 {
     string boardId;
+
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     string url = app->GetBoardURL( boardId );
     cout << url << std::endl;
@@ -243,8 +246,9 @@ void PerformGetBoardURL()
 void PerformShowABoardList()
 {
     string boardListId;
+
     cout << "Enter list id: ";
-    cin >> boardListId;
+    getline( std::cin >> std::ws, boardListId );
 
     std::string json = app->ShowABoardList( boardListId );
     if( !json.empty() )
@@ -262,12 +266,11 @@ void PerformCreateBoardList()
 {
     string boardListName, boardId, boardListId;
     
- 
     cout << "Enter board id: ";
-    cin >> boardId;
+    getline( std::cin >> std::ws, boardId );
 
     cout << "Enter board list name: ";
-    cin >> boardListName;
+    getline( std::cin >> std::ws, boardListName );
 
     boardListId = app->CreateBoardList( boardId, boardListName );
 
@@ -278,10 +281,12 @@ void PerformCreateBoardList()
 void PerformDeleteBoardList()
 {
     string boardListId;
+
     cout << "Enter board list id: ";
-    cin >> boardListId;
+    getline( std::cin >> std::ws, boardListId );
 
     RETURN_CODE code = app->DeleteBoardList( boardListId );
+
     cout << Error::getReturnCodeMessage( code ) << "\n";
 }
 
@@ -293,8 +298,9 @@ void PerformDeleteBoardList()
 void PerformShowACard()
 {
     string cardId;
+
     cout << "Enter card id: ";
-    cin >> cardId;
+    getline( std::cin >> std::ws, cardId );
 
     std::string json = app->ShowACard( cardId );
 
@@ -314,10 +320,10 @@ void PerformCreateCard()
     string boardListId, cardName;
 
     cout << "Enter board list id: ";
-    cin >> boardListId;
+    getline( std::cin >> std::ws, boardListId );
 
     cout << "Enter card name: ";
-    cin >> cardName;
+    getline( std::cin >> std::ws, cardName );
 
     string cardId = app->CreateCard( boardListId, cardName );
     if( !cardId.empty() )
@@ -328,11 +334,12 @@ void PerformCreateCard()
 
 void PerformDeleteCard()
 {
-    string carId;
-    cout << "Enter card id: ";
-    cin >> carId;
+    string cardId;
 
-    RETURN_CODE code = app->DeleteCard( carId );
+    cout << "Enter card id: ";
+    getline( std::cin >> std::ws, cardId );
+
+    RETURN_CODE code = app->DeleteCard( cardId );
 
     cout << Error::getReturnCodeMessage( code ) << "\n";
 }
@@ -342,10 +349,10 @@ void PerformAssignUserToCard()
     string cardId, email;
 
     cout << "Enter email id: ";
-    cin >> email;
+    getline( std::cin >> std::ws, email );
 
     cout << "Enter card id: ";
-    cin >> cardId;
+    getline( std::cin >> std::ws, cardId );
 
     RETURN_CODE code = app->AssignUserToCard( email, cardId );
    
@@ -356,26 +363,30 @@ void PerformAssignUserToCard()
 void PerformUnAssignCard()
 {
     string cardId;
+
     cout << "Enter card id: ";
-    cin >> cardId;
+    getline( std::cin >> std::ws, cardId );
 
     RETURN_CODE code = app->RemoveUserFromCard( cardId );
+
     cout << Error::getReturnCodeMessage( code ) << "\n";
 }
 
 void PerformMoveCard()
 {
     string cardId, fromBoardListId, toBoardListId;
+
     cout << "Enter card id to move: ";
-    cin >> cardId;
+    getline( std::cin >> std::ws, cardId );
 
     cout << "Enter source board id ";
-    cin >> fromBoardListId;
+    getline( std::cin >> std::ws, fromBoardListId );
 
     cout << "Enter target board id ";
-    cin >> fromBoardListId;
+    getline( std::cin >> std::ws, toBoardListId );
 
     RETURN_CODE code = app->MoveCard( cardId, fromBoardListId, toBoardListId );
+
     cout << Error::getReturnCodeMessage( code ) <<"\n";
 }
 
